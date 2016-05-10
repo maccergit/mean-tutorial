@@ -54,3 +54,52 @@ html
       li $ npm -v
     .body.
       These both should run and print the version of <b>node</b> and <b>npm</b> if everything worked and installed OK.
+    #using_node.subsection Using Node.js
+    .body.
+      The raw Node.js does not do much - it's pretty much a wrapper around the V8 JavaScript engine.  However, it does
+      provide a Read-Eval-Print-Loop (REPL) that is handy for trying out JavaScript expressions, and it can also run
+      JavaScript programs in files.
+    #repl.subsubsection Using the Read-Eval-Print-Loop (REPL)
+    .body.
+      Running <b>node</b> directly from the command line with no arguments starts up an interactive REPL session, where you
+      can directly type in JavaScript commands that will be immediately executed, with the results printed out:
+    ul.code
+      li $ <b>node</b>
+      li > <b>1 + 2</b>
+      li 3
+      li > <b>a = [1, 2, 3]</b>
+      li [ 1, 2, 3 ]
+        .code-comment You can define variables.  Use <b>var</b> to prevent returning a value.
+      li > <b>a.forEach(function(v) {</b>
+      li ... <b>console.log(v);</b>
+      li ... <b>});</b>
+        .code-comment Node.js knows when the scope needs to be closed, and changes the prompt.
+      li 1
+      li 2
+      li 3
+      li undefined
+        .code-comment After printing each of the elements, the return value is <b>undefined</b>.
+      li > <b><i>CTRL-D</i></b>
+      li $
+        .code-comment Use <b>CTRL-D</b> to exit the REPL.
+    #scripts.subsubsection Using JavaScript Files
+    .body.
+      Using <b>node</b> on the command line with a file as the argument causes Node.js to treat the file as a JavaScript
+      source file to be executed.  By putting the proper 'shebang' at the top of the file, an executable file can
+      automatically use Node.js to execute the file:
+    ul.code
+      li #!/usr/bin/env node
+      li console.log(process.argv);
+        .code-comment <b>process.argv</b> is a list of the command line arguments.
+    .body.
+      By making the new script executable, and then running it, Node.js will run the script:
+    ul.code
+      li $ <b>chmod +x script.js</b>
+      li $ <b>./script.js Hello World</b>
+      li [ 'node',
+      li &nbsp;&nbsp;'/home/johnm/node_projects/script.js',
+      li &nbsp;&nbsp;'Hello',
+      li &nbsp;&nbsp;'World' ]
+       .code-comment The arguments list starts with 'node' and the full path of the script, and then the command line
+         | &nbsp;arguments. Using <b>process.argv.slice(2)</b> will leave an array of just the arguments. There are many
+         | &nbsp;more details of command line processing available on the internet.
