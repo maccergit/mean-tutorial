@@ -8,22 +8,67 @@ html
     .body.
       In this tutorial, we will cover the basics of using <b>npm</b> - the Node Package Manager, which is installed when
       Node.js is installed.  It is used to install <i>modules</i>, which extend the features of Node.js.
-    #using.subsection Using <b>npm</b>
+    #using.subsection Using #[b npm]
     .body.
       Previously, we created a script without giving much thought to how it should be packaged or structured.  As our
       scripts get more complex, we will want to break them up into multiple files - and we need to organize these files
       so they can be easily maintained and delivered.  To start off, we will create a directory when we start a new
-      project - it will hold all the files for that project.  Let's create a new directory called <b>node_hello</b>:
+      project - it will hold all the files for that project.  Let's create a new directory called #[b node_hello]:
     ul.code
       li $ 
         b mkdir node_hello
       li $ 
         b cd node_hello
     .body.
-      Let's start our new project with the script we built in the <a href="node#scripts">previous lesson</a>, and refresh
+      Let's start our new project with the script we built in the #[a(href = 'node#scripts') previous lesson], and refresh
       our memory by taking a look at it:
     ul.code
       li $ 
         b cp ../script.js hello.js
+        .code-comment Note that we have renamed our copy of the script to #[b hello.js].
       li $ 
         b cat hello.js
+      li #!/usr/bin/env node
+      li console.log(process.argv.slice(2);
+    .body.
+      Remember that we had to slice the arguments list to get to the actual command line parameters.  This is just a hint of
+      the complexity of parsing a full set of command line parameters - when you include optional parms, long and short
+      names for parms, and numeric vs. string parms, the code can become quite complicated.  Fortunately, there is a module
+      that can handle parsing the parameter list for us - #[b yargs].
+    .body.
+      First, we need to get #[b yargs] from the repository.  Normally, #[b npm] will download the module and store it
+      #[em locally] - that is, it will create a directory called #[b node_modules] in the current directory, and will load
+      the module in that directory.  However, the #[em -g] option will cause #[b npm] to load the module #[em globally],
+      which will load the module into a globally accessible directory.  This can be useful if the module includes a
+      command line executable - the global install makes sure the command is installed on the command search path.
+    .body.
+      However, in most cases, we prefer to install modules locally.  While this means a module is not shared across
+      projects, and thus a copy of the module is loaded within each project that needs it, it also means that each project
+      has control over the versions of the modules it uses.  When projects share a module, they then need to make sure they
+      all can use the same version of the module, which can lead to a situation called 'dependency hell'.  By loading the
+      modules locally to each project, we can avoid dependency hell.
+    .body.
+      Another thing to note is that most modules depend upon other modules.  Fortunately, #[b npm] is able to handle this,
+      and will load any missing dependencies that are needed.  These are stored in subdirectories within the main module
+      directory in #[b node_modules].  And these modules can depend on other modules, and so on&hellip; Let's see how this
+      works when we use #[b npm] to load #[b yargs] in the current project:
+    ul.code(style = 'font-size: .7em')
+      li $
+        b npm install yargs
+      li yargs@4.7.0 node_modules/yargs
+      li ├── decamelize@1.2.0
+      li ├── camelcase@2.1.1
+      li ├── y18n@3.2.1
+      li ├── window-size@0.2.0
+      li ├── require-main-filename@1.0.1
+      li ├── yargs-parser@2.4.0
+      li ├── lodash.assign@4.0.8 (lodash.rest@4.0.2, lodash.keys@4.0.6)
+      li ├── os-locale@1.4.0 (lcid@1.0.0)
+      li ├── string-width@1.0.1 (code-point-at@1.0.0, is-fullwidth-code-point@1.0.0, strip-ansi@3.0.1)
+      li ├── cliui@3.2.0 (wrap-ansi@2.0.0, strip-ansi@3.0.1)
+      li ├── pkg-conf@1.1.2 (object-assign@4.1.0, symbol@0.2.2, find-up@1.1.2, load-json-file@1.1.0)
+      li └── read-pkg-up@1.0.1 (find-up@1.1.2, read-pkg@1.1.0)
+    .body.
+      Your version numbers, or even the list of loaded modules, may differ if the modules or dependencies have changed since
+      this tutorial was written. If we look, there will now be a #[b node_modules] direcory that contains the tree of
+      modules we just loaded:
