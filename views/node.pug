@@ -64,22 +64,30 @@ html
       Running <b>node</b> directly from the command line with no arguments starts up an interactive REPL session, where you
       can directly type in JavaScript commands that will be immediately executed, with the results printed out:
     ul.code
-      li $ <b>node</b>
-      li > <b>1 + 2</b>
+      li $ 
+         b node
+      li > 
+        b 1 + 2
       li 3
-      li > <b>a = [1, 2, 3]</b>
+      li > 
+        b a = [1, 2, 3]
       li [ 1, 2, 3 ]
         .code-comment You can define variables.  Use <b>var</b> to prevent returning a value.
-      li > <b>a.forEach(function(v) {</b>
-      li ... <b>console.log(v);</b>
-      li ... <b>});</b>
+      li > 
+        b a.forEach(function(v) {
+      li ... 
+        b console.log(v);
+      li ... 
+        b });
         .code-comment Node.js knows when the scope needs to be closed, and changes the prompt.
       li 1
       li 2
       li 3
       li undefined
         .code-comment After printing each of the elements, the return value is <b>undefined</b>.
-      li > <b><i>CTRL-D</i></b>
+      li > 
+        b
+          i CTRL-D
       li $
         .code-comment Use <b>CTRL-D</b> to exit the REPL.
     #scripts.subsubsection Using JavaScript Files
@@ -95,8 +103,10 @@ html
     .body.
       By making the new script executable, and then running it, Node.js will run the script:
     ul.code
-      li $ <b>chmod +x script.js</b>
-      li $ <b>./script.js Hello World</b>
+      li $ 
+        b chmod +x script.js
+      li $ 
+        b ./script.js Hello World
       li [ 'node',
       li &nbsp;&nbsp;'/home/johnm/node_projects/script.js',
       li &nbsp;&nbsp;'Hello',
@@ -108,7 +118,8 @@ html
       li #!/usr/bin/env node
       li console.log(process.argv.slice(2);
       hr
-      li $ <b>./script.js Hello World</b>
+      li $ 
+        b ./script.js Hello World
       li [ 'Hello', 'World' ]
     .body.
       Much more information on command line script processing with Node.js is available on the web.
