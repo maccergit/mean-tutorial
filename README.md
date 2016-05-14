@@ -6,3 +6,4 @@ Work In Progress - currently covers:
 - Using Node.js
     - Using the REPL
     - Executing JS files
+- Using _npm_
