@@ -7,7 +7,7 @@ html
     .section npm
     .body.
       In this tutorial, we will cover the basics of using <b>npm</b> - the Node Package Manager, which is installed when
-      Node.js is installed.  It is used to install <i>modules</i>, which extend the features of Node.js.
+      Node.js is installed.  It is used to install #[i modules], which extend the features of Node.js.
     #using.subsection Using #[b npm]
     .body.
       Previously, we created a script without giving much thought to how it should be packaged or structured.  As our
@@ -72,3 +72,48 @@ html
       Your version numbers, or even the list of loaded modules, may differ if the modules or dependencies have changed since
       this tutorial was written. If we look, there will now be a #[b node_modules] direcory that contains the tree of
       modules we just loaded:
+    ul.code
+      li $
+        b ls node_modules
+      li yargs
+        .code-comment As expected - we installed a single module.
+      li $
+        b ls node_modules/yargs
+      li
+        table(width = '100%')
+          tr
+            td CHANGELOG.md
+            td index.js
+            td LICENSE
+            td node_modules
+            td README.md
+          tr
+            td completion.sh.hbs
+            td lib
+            td locales
+            td package.json
+            td yargs.js
+        .code-comment.
+          The module contains a lot of stuff - we will cover most of these throughout the tutorial.  Note
+          the #[b node_modules] directory&hellip;
+      li $
+        b ls node_modules/yargs/node_modules
+      li
+        table(width = '100%')
+          tr
+            td camelcase
+            td lodash.assign
+            td read-pkg-up
+            td window-size
+          tr
+            td cliui
+            td os-locale
+            td require-main-filename
+            td y18n
+          tr
+            td decamelize
+            td pkg-conf
+            td string-width
+            td yargs-parser
+        .code-comment &hellip;which contains the modules loaded as part of #[b yargs].
+    #yargs.subsubsection Using #[b yargs]
