@@ -117,3 +117,37 @@ html
             td yargs-parser
         .code-comment &hellip;which contains the modules loaded as part of #[b yargs].
     #yargs.subsubsection Using #[b yargs]
+    .body.
+      Now that we have #[b yargs] installed locally for or project, let's put it to use.  The first thing to know is that
+      you will usually need to add a statement to your script to pull an installed module into the namespace of your 
+      script - some modules don't need this, as they will be pulled in via some other mechanism, but the norm is to pull 
+      them in with a #[b require] statement:
+    ul.code
+      li require('yargs');
+    .body.
+      Normally placed at the top of the script, it returns an exported object that provides access to the module.  The
+      exported object is often stored in a variable for later use, or sometimes can be used directly - here's an example
+      the we will call #[b hello2.js]:
+    ul.code
+      li #!/usr/bin/env node
+      li console.log(require('yargs').argv);
+    .body.
+      If we run both scripts with the same arguments, we see they produce different results:
+    ul.code
+      li $
+        b ./hello.js --count 5 Hello World
+      li [ '--count', '5', 'Hello', 'World' ]
+      li $
+        b ./hello2.js --count 5 Hello World
+      li { _: [ 'Hello', 'World' ], count: 5, '$0': 'hello2.js' }
+    .body.
+      #[b yargs] was able to parse the argument list into a map, automatically looking in the #[b process] global variable
+      to pick up the argument list, and then recognizing that #[b --count] should populate a slot called #[b count] with
+      an integer.  #[b yargs] is typically used like this:
+    ul.code
+      li var args = require('yargs').argv;
+      li console.log("count = %d", args.count);
+      li console.log("plain args = %s", args._);
+    .body.
+      #[b yargs] can do much more - see the #[a(href = 'https://www.npmjs.com/package/yargs') documentation] for details.
+      Just watch out for pirate puns - #[i #[b yargs], matey!]
